@@ -29,7 +29,7 @@ jobs:
         run: dotnet build CognitiveForge.McpCategoryRouting.slnx --no-restore
 
       - name: Test with coverage
-        run: dotnet test CognitiveForge.McpCategoryRouting.slnx --no-build --logger "trx;LogFileName=results.trx" --results-directory TestResults --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+        run: dotnet test CognitiveForge.McpCategoryRouting.slnx --no-build --logger "trx;LogFilePrefix=results_" --results-directory TestResults --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
 
       - name: Publish test results
         uses: dorny/test-reporter@fe45e9537387dac839af0d33ba56eed8e24189e8 # v2.3.0
