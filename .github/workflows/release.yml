@@ -52,9 +52,24 @@ jobs:
           SHORT_SHA=$(git rev-parse --short HEAD)
           PRS='${{ needs.release-please.outputs.prs }}'
           VERSION=$(echo "$PRS" | jq -r 'if type == "array" and length > 0 then .[0].title | match("[0-9]+\\.[0-9]+\\.[0-9]+").string else empty end' 2>/dev/null)
+
           if [ -z "$VERSION" ]; then
+            if [ ! -f .release-please-manifest.json ]; then
+              echo "ERROR: .release-please-manifest.json not found and could not extract version from release-please PR"
+              exit 1
+            fi
+            if [ ! -r .release-please-manifest.json ]; then
+              echo "ERROR: .release-please-manifest.json is not readable"
+              exit 1
+            fi
             VERSION=$(jq -r '."."' .release-please-manifest.json)
           fi
+
+          if [ -z "$VERSION" ]; then
+            echo "ERROR: Failed to determine prerelease version. VERSION is empty."
+            exit 1
+          fi
+
           dotnet pack src/CognitiveForge.McpCategoryRouting -c Release --no-build -o artifacts -p:VersionPrefix="$VERSION" -p:VersionSuffix="pre.${SHORT_SHA}"
 
       - name: NuGet login (Trusted Publishing)
