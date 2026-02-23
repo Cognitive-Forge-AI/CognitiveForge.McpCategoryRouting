@@ -200,7 +200,7 @@ dotnet_naming_symbols.methods.applicable_accessibilities = *
 dotnet_naming_style.methods_style.capitalization = pascal_case
 
 
-#classes are PacalCase
+#classes are PascalCase
 dotnet_naming_rule.classes_should_be_pascal_case.severity = error
 dotnet_naming_rule.classes_should_be_pascal_case.symbols = classes
 dotnet_naming_rule.classes_should_be_pascal_case.style = classes_style
@@ -221,7 +221,7 @@ dotnet_naming_symbols.parameters.applicable_kinds = parameter
 dotnet_naming_style.parameters_style.capitalization = camel_case
 
 
-#interfaces are PacalCase and start with I
+#interfaces are PascalCase and start with I
 dotnet_naming_rule.interfaces_should_be_pascal_case.severity = error
 dotnet_naming_rule.interfaces_should_be_pascal_case.symbols = interfaces
 dotnet_naming_rule.interfaces_should_be_pascal_case.style = interfaces_style
