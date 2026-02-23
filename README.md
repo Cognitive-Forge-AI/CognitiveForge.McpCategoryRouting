@@ -2,6 +2,10 @@
 
 Category-based routing for .NET MCP servers. Expose different subsets of tools, prompts, and resources on different URL paths from a single MCP server.
 
+[![NuGet version](https://img.shields.io/nuget/v/CognitiveForge.McpCategoryRouting.svg)](https://www.nuget.org/packages/CognitiveForge.McpCategoryRouting/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/Cognitive-Forge-AI/CognitiveForge.McpCategoryRouting?utm_source=oss&utm_medium=github&utm_campaign=Cognitive-Forge-AI%2FCognitiveForge.McpCategoryRouting&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)](https://coderabbit.ai)
+
 ## Overview
 
 This library hooks into the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) SDK for .NET and filters MCP primitives per HTTP session based on a route parameter. For example, `app.MapMcp("/{category}")` lets requests to `/analytics` see only analytics tools while `/ops` sees only operations tools.
