@@ -45,7 +45,7 @@ public static class OperationsTools
 [McpServerToolType]
 public static class CommonTools
 {
-    [McpServerTool, Description("No category attribute: never visible because of the default fallback strategy.")]
+    [McpServerTool, Description("No category attribute: hidden because uncategorized tools are excluded by default (UncategorizedBehavior.ExcludeAlways).")]
     public static string GetServerName()
         => "basic-sample";
 }
