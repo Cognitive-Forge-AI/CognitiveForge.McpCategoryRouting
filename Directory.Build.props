@@ -1,0 +1,11 @@
+<Project>
+
+  <PropertyGroup>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <Authors>Cognitive Forge Inc.</Authors>
+    <PackageProjectUrl>https://github.com/Cognitive-Forge-AI/CognitiveForge.McpCategoryRouting</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Cognitive-Forge-AI/CognitiveForge.McpCategoryRouting.git</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+</Project>

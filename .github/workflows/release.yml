@@ -1,0 +1,61 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    needs: release-please
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.x
+
+      - name: Restore
+        run: dotnet restore CognitiveForge.McpCategoryRouting.slnx
+
+      - name: Build
+        run: dotnet build CognitiveForge.McpCategoryRouting.slnx --no-restore -c Release
+
+      - name: Test
+        run: dotnet test CognitiveForge.McpCategoryRouting.slnx --no-build -c Release
+
+      - name: Pack (release)
+        if: needs.release-please.outputs.releases_created == 'true'
+        run: dotnet pack src/CognitiveForge.McpCategoryRouting -c Release --no-build -o artifacts
+
+      - name: Pack (prerelease)
+        if: needs.release-please.outputs.releases_created != 'true'
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          dotnet pack src/CognitiveForge.McpCategoryRouting -c Release --no-build -o artifacts -p:VersionSuffix="pre.${SHORT_SHA}"
+
+      - name: NuGet login (Trusted Publishing)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: NuGet push
+        run: dotnet nuget push "artifacts/*.nupkg" --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

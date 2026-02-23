@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  checks: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.x
+
+      - name: Restore
+        run: dotnet restore CognitiveForge.McpCategoryRouting.slnx
+
+      - name: Check formatting
+        run: dotnet format CognitiveForge.McpCategoryRouting.slnx --verify-no-changes --no-restore
+
+      - name: Build
+        run: dotnet build CognitiveForge.McpCategoryRouting.slnx --no-restore
+
+      - name: Test
+        run: dotnet test CognitiveForge.McpCategoryRouting.slnx --no-build --logger "trx;LogFileName=results.trx" --results-directory TestResults
+
+      - name: Publish test results
+        uses: dorny/test-reporter@fe45e9537387dac839af0d33ba56eed8e24189e8 # v2.3.0
+        if: always()
+        with:
+          name: Test Results
+          path: TestResults/**/*.trx
+          reporter: dotnet-trx
