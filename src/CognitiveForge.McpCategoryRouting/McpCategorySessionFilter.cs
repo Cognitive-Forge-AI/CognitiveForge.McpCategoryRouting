@@ -5,9 +5,20 @@ using ModelContextProtocol.Server;
 
 namespace CognitiveForge.McpCategoryRouting;
 
+/// <summary>
+/// Implements category-based filtering of MCP primitives at the session level.
+/// </summary>
+/// <remarks>
+/// This class hooks into the MCP SDK's <see cref="HttpServerTransportOptions.ConfigureSessionOptions"/>
+/// callback to filter tools, prompts, and resources per HTTP session based on the route value.
+/// </remarks>
 internal sealed class McpCategorySessionFilter(IOptions<McpCategoryRoutingOptions> options)
     : IPostConfigureOptions<HttpServerTransportOptions>
 {
+    /// <summary>
+    /// Configures the HTTP server transport options by wrapping the session configuration
+    /// to apply category-based filtering.
+    /// </summary>
     public void PostConfigure(string? name, HttpServerTransportOptions transportOptions)
     {
         ArgumentNullException.ThrowIfNull(transportOptions);
