@@ -19,6 +19,7 @@
 	  <ProjectReference Include="..\..\samples\Basic\Basic.csproj">
 		  <Aliases>Basic</Aliases>
 	  </ProjectReference>
+	  <ProjectReference Include="..\CognitiveForge.McpCategoryRouting\CognitiveForge.McpCategoryRouting.csproj" />
   </ItemGroup>
 
   <ItemGroup>

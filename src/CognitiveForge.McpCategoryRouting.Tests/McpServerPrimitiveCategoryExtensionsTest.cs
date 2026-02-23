@@ -55,5 +55,97 @@ public class McpServerPrimitiveCategoryExtensionsTest
             Assert.Single(categories);
             Assert.Equal("analytics", categories[0], ignoreCase: true);
         }
+
+        [Fact]
+        public void Should_return_category_from_single_McpCategoryAttribute()
+        {
+            var primitive = new FakePrimitive([new McpCategoryAttribute("analytics")]);
+
+            var categories = primitive.GetCategories();
+
+            Assert.Single(categories);
+            Assert.Equal("analytics", categories[0]);
+        }
+
+        [Fact]
+        public void Should_return_multiple_categories_from_multiple_McpCategoryAttributes()
+        {
+            var primitive = new FakePrimitive(
+            [
+                new McpCategoryAttribute("analytics"),
+                new McpCategoryAttribute("ops")
+            ]);
+
+            var categories = primitive.GetCategories();
+
+            Assert.Equal(2, categories.Count);
+            Assert.Contains("analytics", categories, StringComparer.OrdinalIgnoreCase);
+            Assert.Contains("ops", categories, StringComparer.OrdinalIgnoreCase);
+        }
+
+        [Fact]
+        public void Should_deduplicate_categories_case_insensitively()
+        {
+            var primitive = new FakePrimitive(
+            [
+                new McpCategoryAttribute("Analytics"),
+                new McpCategoryAttribute("analytics"),
+                new McpCategoryAttribute("ANALYTICS")
+            ]);
+
+            var categories = primitive.GetCategories();
+
+            Assert.Single(categories);
+        }
+
+        [Fact]
+        public void Should_trim_whitespace_from_McpCategoryAttribute()
+        {
+            var primitive = new FakePrimitive([new McpCategoryAttribute("  analytics  ")]);
+
+            var categories = primitive.GetCategories();
+
+            Assert.Single(categories);
+            Assert.Equal("analytics", categories[0]);
+        }
+
+        [Fact]
+        public void Should_ignore_whitespace_only_McpCategoryAttribute()
+        {
+            var primitive = new FakePrimitive([new McpCategoryAttribute("   ")]);
+
+            var categories = primitive.GetCategories();
+
+            Assert.Empty(categories);
+        }
+
+        [Fact]
+        public void Should_trim_whitespace_from_CategoryAttribute()
+        {
+            var primitive = new FakePrimitive([new CategoryAttribute("  ops  ")]);
+
+            var categories = primitive.GetCategories();
+
+            Assert.Single(categories);
+            Assert.Equal("ops", categories[0]);
+        }
+
+        [Fact]
+        public void Should_ignore_whitespace_only_CategoryAttribute()
+        {
+            var primitive = new FakePrimitive([new CategoryAttribute("   ")]);
+
+            var categories = primitive.GetCategories();
+
+            Assert.Empty(categories);
+        }
+
+        [Fact]
+        public void Should_throw_ArgumentNullException_for_null_primitive()
+        {
+            IMcpServerPrimitive primitive = null!;
+
+            Assert.Throws<ArgumentNullException>(() => primitive.GetCategories());
+        }
     }
 }
