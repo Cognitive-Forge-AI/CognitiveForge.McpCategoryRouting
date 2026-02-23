@@ -28,8 +28,8 @@ jobs:
       - name: Build
         run: dotnet build CognitiveForge.McpCategoryRouting.slnx --no-restore
 
-      - name: Test
-        run: dotnet test CognitiveForge.McpCategoryRouting.slnx --no-build --logger "trx;LogFileName=results.trx" --results-directory TestResults
+      - name: Test with coverage
+        run: dotnet test CognitiveForge.McpCategoryRouting.slnx --no-build --logger "trx;LogFileName=results.trx" --results-directory TestResults --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
 
       - name: Publish test results
         uses: dorny/test-reporter@fe45e9537387dac839af0d33ba56eed8e24189e8 # v2.3.0
@@ -38,3 +38,11 @@ jobs:
           name: Test Results
           path: TestResults/**/*.trx
           reporter: dotnet-trx
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          directory: ./TestResults
+          flags: unittests
+          fail_ci_if_error: false
+          verbose: true

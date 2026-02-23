@@ -3,6 +3,7 @@
 Category-based routing for .NET MCP servers. Expose different subsets of tools, prompts, and resources on different URL paths from a single MCP server.
 
 [![NuGet version](https://img.shields.io/nuget/v/CognitiveForge.McpCategoryRouting.svg)](https://www.nuget.org/packages/CognitiveForge.McpCategoryRouting/)
+[![codecov](https://codecov.io/gh/Cognitive-Forge-AI/CognitiveForge.McpCategoryRouting/graph/badge.svg?token=UY6GK8EIHY)](https://codecov.io/gh/Cognitive-Forge-AI/CognitiveForge.McpCategoryRouting)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/Cognitive-Forge-AI/CognitiveForge.McpCategoryRouting?utm_source=oss&utm_medium=github&utm_campaign=Cognitive-Forge-AI%2FCognitiveForge.McpCategoryRouting&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)](https://coderabbit.ai)
 
