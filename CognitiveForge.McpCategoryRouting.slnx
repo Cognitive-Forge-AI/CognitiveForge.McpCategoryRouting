@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/Basic/Basic.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/CognitiveForge.McpCategoryRouting.IntegrationTests/CognitiveForge.McpCategoryRouting.IntegrationTests.csproj" />
+    <Project Path="src/CognitiveForge.McpCategoryRouting.Tests/CognitiveForge.McpCategoryRouting.Tests.csproj" />
+    <Project Path="src/CognitiveForge.McpCategoryRouting/CognitiveForge.McpCategoryRouting.csproj" />
+  </Folder>
+</Solution>
