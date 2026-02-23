@@ -1,1 +1,1 @@
-IMPORTANT: Use the rules defined under the `.augment/rules` directory on top of what you have here, especially the [General Guidelines](.augment/rules/Guidelines.md) and the [C# rules](.augment/rules/CSharp.md) rulesets.
+IMPORTANT: Use the rules defined under the `.augment/rules` directory on top of what you have here, especially the [General Guidelines](.augment/rules/Guidelines.md), the [C# rules](.augment/rules/CSharp.md), and the [Testing rules](.augment/rules/Testing.md) rulesets.
