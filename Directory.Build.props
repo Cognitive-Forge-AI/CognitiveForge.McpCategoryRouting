@@ -6,6 +6,11 @@
     <PackageProjectUrl>https://github.com/Cognitive-Forge-AI/CognitiveForge.McpCategoryRouting</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Cognitive-Forge-AI/CognitiveForge.McpCategoryRouting.git</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
 </Project>
