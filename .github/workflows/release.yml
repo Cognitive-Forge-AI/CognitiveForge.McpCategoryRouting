@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
+      prs: ${{ steps.release.outputs.prs }}
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
@@ -47,9 +48,30 @@ jobs:
 
       - name: Pack (prerelease)
         if: needs.release-please.outputs.releases_created != 'true'
+        env:
+          PRS: ${{ needs.release-please.outputs.prs }}
         run: |
           SHORT_SHA=$(git rev-parse --short HEAD)
-          dotnet pack src/CognitiveForge.McpCategoryRouting -c Release --no-build -o artifacts -p:VersionSuffix="pre.${SHORT_SHA}"
+          VERSION=$(echo "$PRS" | jq -r 'if type == "array" and length > 0 then .[0].title | match("[0-9]+\\.[0-9]+\\.[0-9]+").string // empty else empty end' 2>/dev/null)
+
+          if [ -z "$VERSION" ]; then
+            if [ ! -f .release-please-manifest.json ]; then
+              echo "ERROR: .release-please-manifest.json not found and could not extract version from release-please PR"
+              exit 1
+            fi
+            if [ ! -r .release-please-manifest.json ]; then
+              echo "ERROR: .release-please-manifest.json is not readable"
+              exit 1
+            fi
+            VERSION=$(jq -r '."." // empty' .release-please-manifest.json)
+          fi
+
+          if [ -z "$VERSION" ]; then
+            echo "ERROR: Failed to determine prerelease version. VERSION is empty."
+            exit 1
+          fi
+
+          dotnet pack src/CognitiveForge.McpCategoryRouting -c Release --no-build -o artifacts -p:VersionPrefix="$VERSION" -p:VersionSuffix="pre.${SHORT_SHA}"
 
       - name: NuGet login (Trusted Publishing)
         uses: NuGet/login@v1
