@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CognitiveForge.McpCategoryRouting\CognitiveForge.McpCategoryRouting.csproj" />
+    <ProjectReference Include="..\..\src\CognitiveForge.McpCategoryRouting\CognitiveForge.McpCategoryRouting.csproj" />
   </ItemGroup>
 
 </Project>

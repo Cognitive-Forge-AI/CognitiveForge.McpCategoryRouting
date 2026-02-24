@@ -3,8 +3,10 @@
     <Project Path="samples/Basic/Basic.csproj" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/CognitiveForge.McpCategoryRouting.IntegrationTests/CognitiveForge.McpCategoryRouting.IntegrationTests.csproj" />
-    <Project Path="src/CognitiveForge.McpCategoryRouting.Tests/CognitiveForge.McpCategoryRouting.Tests.csproj" />
     <Project Path="src/CognitiveForge.McpCategoryRouting/CognitiveForge.McpCategoryRouting.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/CognitiveForge.McpCategoryRouting.IntegrationTests/CognitiveForge.McpCategoryRouting.IntegrationTests.csproj" />
+    <Project Path="test/CognitiveForge.McpCategoryRouting.Tests/CognitiveForge.McpCategoryRouting.Tests.csproj" />
   </Folder>
 </Solution>
