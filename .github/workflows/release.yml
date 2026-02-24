@@ -51,7 +51,7 @@ jobs:
         run: |
           SHORT_SHA=$(git rev-parse --short HEAD)
           PRS='${{ needs.release-please.outputs.prs }}'
-          VERSION=$(echo "$PRS" | jq -r 'if type == "array" and length > 0 then .[0].title | match("[0-9]+\\.[0-9]+\\.[0-9]+").string else empty end' 2>/dev/null)
+          VERSION=$(echo "$PRS" | jq -r 'if type == "array" and length > 0 then .[0].title | match("[0-9]+\\.[0-9]+\\.[0-9]+").string // empty else empty end' 2>/dev/null)
 
           if [ -z "$VERSION" ]; then
             if [ ! -f .release-please-manifest.json ]; then
@@ -62,7 +62,7 @@ jobs:
               echo "ERROR: .release-please-manifest.json is not readable"
               exit 1
             fi
-            VERSION=$(jq -r '."."' .release-please-manifest.json)
+            VERSION=$(jq -r '."." // empty' .release-please-manifest.json)
           fi
 
           if [ -z "$VERSION" ]; then
